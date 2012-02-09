@@ -1,0 +1,15 @@
+name:           wai-middleware-cache
+version:        0.0.1
+cabal-version:  >= 1.2
+build-type:     Simple
+
+library
+  hs-source-dirs:  src
+  build-depends:   
+                   base >= 4,
+                   hedis,
+                   wai,
+                   bytestring
+  ghc-options:     -Wall
+  other-modules:   Network.Wai.Middleware.Cache
+
