@@ -13,6 +13,7 @@ description:
     creating cache backends.
 license:        BSD3
 license-file:   LICENSE
+category:       Web
 
 source-repository head
   type:         git
