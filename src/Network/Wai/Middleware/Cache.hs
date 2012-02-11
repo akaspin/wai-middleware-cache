@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveDataTypeable #-} 
 
 -- | Transparent front cache middleware for 'Network.Wai'.
 --   
@@ -12,11 +13,16 @@
 module Network.Wai.Middleware.Cache (
     -- * Backend
     CacheBackend,
+    CacheBackendError(..),
     -- * Middleware
     cache
 ) where
 
+import Control.Exception (Exception)
+
 import Data.Maybe (fromMaybe)
+import Data.Typeable (Typeable)
+import Data.ByteString (ByteString)
 import Data.ByteString.Lazy (empty)
 import Data.Conduit (ResourceT)
 
@@ -30,6 +36,12 @@ type CacheBackend =
        Application      -- ^ Application
     -> Request          -- ^ Request
     -> ResourceT IO (Maybe Response)
+
+-- | Cache backend can throw errors. For handle this, use, for example,
+--   "Network.Wai.Middleware.Catch".
+data CacheBackendError = CacheBackendError ByteString
+    deriving (Show, Eq, Typeable)
+instance Exception CacheBackendError
 
 -- | Cache middleware. Use it with conjuction with 'CacheBackend'.  
 --  

@@ -1,8 +1,8 @@
 name:           wai-middleware-cache
-version:        0.1.0
+version:        0.2.0
 cabal-version:  >= 1.8
 build-type:     Simple
-stability:      Experimental
+stability:      Stable
 author:         Alexander Dorofeev <aka.spin@gmail.com>
 maintainer:     Alexander Dorofeev <aka.spin@gmail.com>
 synopsis:       Caching middleware for WAI.
