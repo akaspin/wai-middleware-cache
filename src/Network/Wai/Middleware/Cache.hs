@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveDataTypeable #-} 
+{-# LANGUAGE OverloadedStrings #-} 
 
 -- | Transparent front cache middleware for 'Network.Wai'.
 --   
@@ -11,11 +12,12 @@
 --  >       ourFrivolousApplication
  
 module Network.Wai.Middleware.Cache (
-    -- * Backend
+    -- * Middleware
     CacheBackend,
     CacheBackendError(..),
-    -- * Middleware
-    cache
+    cache,
+    -- * Helpers
+    lookupETag
 ) where
 
 import Control.Exception (Exception)
@@ -31,7 +33,7 @@ import Network.Wai (Application, Middleware, Request(..), Response(..),
 import Network.HTTP.Types (status304)
 
 -- | Abstract cache backend. Result may be 'Nothing' you need to respond  
---   wirh status @304 - Not Modified@.
+--   with status @304 - Not Modified@.
 type CacheBackend =
        Application      -- ^ Application
     -> Request          -- ^ Request
@@ -58,4 +60,11 @@ cache ::
 cache cacheBackend app req = do
     res <- cacheBackend app req
     return $ fromMaybe (responseLBS status304 [] empty) res 
+    
+----------------------------------------------------------------------------
+-- Helpers
+----------------------------------------------------------------------------
 
+-- | Helper for extract @If-None-Match@ header from 'Request'.
+lookupETag :: Request -> Maybe ByteString
+lookupETag = lookup "If-None-Match" . requestHeaders
