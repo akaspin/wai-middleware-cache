@@ -16,8 +16,9 @@ module Network.Wai.Middleware.Cache (
     CacheBackend,
     CacheBackendError(..),
     cache,
-    -- * Helpers
-    lookupETag
+    
+    -- * Request helpers
+    lookupETag,
 ) where
 
 import Control.Exception (Exception)
@@ -62,9 +63,13 @@ cache cacheBackend app req = do
     return $ fromMaybe (responseLBS status304 [] empty) res 
     
 ----------------------------------------------------------------------------
--- Helpers
+-- Request Helpers
 ----------------------------------------------------------------------------
 
 -- | Helper for extract @If-None-Match@ header from 'Request'.
 lookupETag :: Request -> Maybe ByteString
 lookupETag = lookup "If-None-Match" . requestHeaders
+
+
+
+
