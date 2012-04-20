@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveDataTypeable #-} 
-{-# LANGUAGE OverloadedStrings, ScopedTypeVariables #-} 
+{-# LANGUAGE OverloadedStrings #-} 
 
 -- | Transparent front cache middleware for 'Network.Wai'.
 --   
@@ -49,7 +49,7 @@ import Network.Wai (Application, Middleware, Request(..), Response(..),
 import Network.HTTP.Types (status304)
 
 -- | Abstract cache backend. Result may be 'Nothing' you need to respond  
---   with status @304 - Not Modified@.
+--   with status @304 - Not Modified@. 
 type CacheBackend =
        Application      -- ^ Application
     -> Request          -- ^ Request
