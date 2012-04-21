@@ -22,8 +22,6 @@ module Network.Wai.Middleware.Cache (
     lookupETag
 ) where
 
-import Prelude hiding (concatMap)
-
 import Control.Exception (Exception)
 
 import Numeric (showHex)
