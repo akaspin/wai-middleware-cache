@@ -26,16 +26,18 @@ import Control.Exception (Exception)
 
 import Numeric (showHex)
 
+import Data.Monoid (mconcat)
+
 import Data.Word (Word8)
 import Data.Maybe (fromMaybe)
 import Data.Typeable (Typeable)
 
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as B8
-import Data.ByteString.Lazy (empty)
+import Data.ByteString.Lazy (empty, toChunks)
 
 import Data.Digest.Pure.MD5 (MD5Digest)
-import Data.Serialize (encode)
+import Data.Binary (encode)
 
 import Data.Conduit (ResourceT, ($=), ($$), Flush(..))
 import qualified Data.Conduit.List as CL
@@ -90,7 +92,8 @@ headerETag app req = do
         Nothing -> do
             digest <- rsrc $= builderToByteStringFlush $= 
                     CL.map fromChunk $$ sinkHash
-            let hash = toHex . encode $ (digest :: MD5Digest)
+            let hash = toHex . mconcat . toChunks . encode $ 
+                    (digest :: MD5Digest)
             return $ ResponseSource rs (("ETag", hash):rh) rsrc
   where
     fromChunk (Chunk a) = a

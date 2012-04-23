@@ -1,5 +1,5 @@
 name:           wai-middleware-cache
-version:        0.3.1
+version:        0.3.3
 cabal-version:  >= 1.8
 build-type:     Simple
 stability:      Stable
@@ -21,9 +21,9 @@ source-repository head
 library
   hs-source-dirs:   src
   build-depends:    base >= 4 && < 5,
+                   binary,
                    blaze-builder-conduit >= 0.4,
                    bytestring >= 0.9 && < 0.10,
-                   cereal,
                    conduit >= 0.4 && < 0.5,
                    crypto-conduit,
                    http-types >= 0.6 && < 0.7,
