@@ -1,5 +1,5 @@
 name:           wai-middleware-cache
-version:        0.3.3
+version:        0.3.4
 cabal-version:  >= 1.8
 build-type:     Simple
 stability:      Stable
@@ -22,13 +22,13 @@ library
   hs-source-dirs:   src
   build-depends:    base >= 4 && < 5,
                    binary,
-                   blaze-builder-conduit >= 0.4,
+                   blaze-builder-conduit >= 0.5,
                    bytestring >= 0.9 && < 0.10,
-                   conduit >= 0.4 && < 0.5,
-                   crypto-conduit,
-                   http-types >= 0.6 && < 0.7,
+                   conduit >= 0.5 && < 0.6,
+                   crypto-conduit >= 0.4 && < 0.5,
+                   http-types >= 0.7 && < 0.8,
                    pureMD5,
-                   wai >= 1.2
+                   wai >= 1.3
   ghc-options:      -Wall
   exposed-modules:  Network.Wai.Middleware.Cache
 
@@ -45,10 +45,10 @@ test-suite test
 
                    wai-middleware-cache,
 
-                   wai,
+                   wai >= 1.3,
                    bytestring >= 0.9 && < 0.10,
-                   wai-test,
-                   http-types
+                   wai-test >= 1.3,
+                   http-types >= 0.7 && < 0.8
   ghc-options:     -Wall -rtsopts
   hs-source-dirs:  test
   main-is:         Main.hs
